@@ -507,12 +507,17 @@ p.signed {
     width: 90%;
   }
 
+  .wishesFont {
+    font-size: 0.98em;
+    line-height: 1.2;
+  }
+
   #card h1 {
-    font-size: 45px;
+    font-size: 35px;
   }
 
   .romantic-text {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   .number {
