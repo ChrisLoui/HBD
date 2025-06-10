@@ -81,30 +81,49 @@
     </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const card = document.getElementById('card');
-        const openBtn = document.getElementById('open');
-        const closeBtn = document.getElementById('close');
+      (function () {
+        function $(id) {
+          return document.getElementById(id);
+        }
 
-        openBtn.addEventListener('click', function () {
-          card.classList.remove('close-half');
-          card.classList.add('open-half');
+        var card = $('card'),
+          openB = $('open'),
+          closeB = $('close'),
+          timer = null;
 
-          setTimeout(function () {
-            card.classList.remove('open-half');
-            card.classList.add('open-fully');
+        // Create audio element
+        var audio = new Audio('song.mp3');
+        audio.loop = true;
+        audio.volume = 0.7;
+
+        openB.addEventListener('click', function () {
+          card.setAttribute('class', 'open-half');
+
+          // Play the song
+          audio.play().catch(function (error) {
+            console.log('Audio play failed:', error);
+          });
+
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () {
+            card.setAttribute('class', 'open-fully');
+            timer = null;
           }, 1000);
         });
 
-        closeBtn.addEventListener('click', function () {
-          card.classList.remove('open-fully');
-          card.classList.add('close-half');
+        closeB.addEventListener('click', function () {
+          card.setAttribute('class', 'close-half');
 
-          setTimeout(function () {
-            card.classList.remove('close-half');
+          audio.pause();
+          audio.currentTime = 0;
+
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () {
+            card.setAttribute('class', '');
+            timer = null;
           }, 1000);
         });
-      });
+      }());
     </script>
 </body>
 
